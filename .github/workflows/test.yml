@@ -91,7 +91,7 @@ jobs:
       - name: Start test server
         run: |
           PORT=8080 vendor/bin/start.sh
-          echo "REQUESTS_TEST_HOST_HTTP=localhost:8080" >> $GITHUB_ENV
+          echo "REQUESTS_TEST_HOST_HTTP=localhost:8080" >> "$GITHUB_ENV"
 
       - name: Ping localhost domain
         run: ping -c1 localhost
@@ -100,10 +100,10 @@ jobs:
         run: |
           PORT=9002 tests/utils/proxy/start.sh
           PORT=9003 AUTH="test:pass" tests/utils/proxy/start.sh
-          echo "REQUESTS_HTTP_PROXY=localhost:9002" >> $GITHUB_ENV
-          echo "REQUESTS_HTTP_PROXY_AUTH=localhost:9003" >> $GITHUB_ENV
-          echo "REQUESTS_HTTP_PROXY_AUTH_USER=test" >> $GITHUB_ENV
-          echo "REQUESTS_HTTP_PROXY_AUTH_PASS=pass" >> $GITHUB_ENV
+          echo "REQUESTS_HTTP_PROXY=localhost:9002" >> "$GITHUB_ENV"
+          echo "REQUESTS_HTTP_PROXY_AUTH=localhost:9003" >> "$GITHUB_ENV"
+          echo "REQUESTS_HTTP_PROXY_AUTH_USER=test" >> "$GITHUB_ENV"
+          echo "REQUESTS_HTTP_PROXY_AUTH_PASS=pass" >> "$GITHUB_ENV"
 
       - name: Ensure the HTTPS test instance on Render is spun up
         run: curl -s -I https://requests-test-server.onrender.com/ > /dev/null
@@ -116,7 +116,7 @@ jobs:
 
       - name: Grab PHPUnit version
         id: phpunit_version
-        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(vendor/bin/phpunit --version | grep --only-matching --max-count=1 --extended-regexp '\b[0-9]+\.[0-9]+')" >> "$GITHUB_OUTPUT"
 
       - name: Run the unit tests, no code coverage (PHPUnit < 10)
         if: ${{  matrix.coverage == false && ! startsWith( steps.phpunit_version.outputs.VERSION, '10.' ) }}
