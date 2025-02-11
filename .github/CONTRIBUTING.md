@@ -115,8 +115,8 @@ PORT=8080 vendor/bin/start.sh
 export "REQUESTS_TEST_HOST_HTTP=localhost:8080"
 
 # Start the proxy server
-PORT=9002 tests/utils/proxy/start.sh
-PORT=9003 AUTH="test:pass" tests/utils/proxy/start.sh
+PORT=9002 scripts/proxy/start.sh
+PORT=9003 AUTH="test:pass" scripts/proxy/start.sh
 export "REQUESTS_HTTP_PROXY=localhost:9002"
 export "REQUESTS_HTTP_PROXY_AUTH=localhost:9003"
 export "REQUESTS_HTTP_PROXY_AUTH_USER=test"
@@ -126,8 +126,8 @@ export "REQUESTS_HTTP_PROXY_AUTH_PASS=pass"
 composer test
 
 # Stop the proxy server
-PORT=9002 tests/utils/proxy/stop.sh
-PORT=9003 tests/utils/proxy/stop.sh
+PORT=9002 scripts/proxy/stop.sh
+PORT=9003 scripts/proxy/stop.sh
 
 # Stop the test server
 vendor/bin/stop.sh
